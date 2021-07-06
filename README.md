@@ -3,8 +3,9 @@ Shos.Console
 
 See the sample: https://github.com/Fujiwo/Shos.Console/blob/main/Shos.Console.Sample/Program.cs
 
+Result:
 
-```Result:
+```
 
 Number Name            Email              Score
      9 Kana Nishino    kana@xxx.com       100.0
