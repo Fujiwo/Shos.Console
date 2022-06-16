@@ -71,11 +71,57 @@ namespace Shos.Console.Sample
             );
         }
 
+        class Department
+        {
+            public int Code { get; set; }
+            public string Name { get; set; } = "";
+        }
+
+        class Employee
+        {
+            public string Name { get; set; } = "";
+            public int Number { get; set; }
+            public Department? Department { get; set; }
+        }
+
+        static void クラスを2つ利用した場合()
+        {
+            var departments = new[] {
+                new Department { Code = 1001, Name = "人事部"        },
+                new Department { Code =  501, Name = "経理部"        },
+                new Department { Code = 3001, Name = "R&D室"         },
+                new Department { Code =   27, Name = "土木開発事業部"}
+            };
+
+            var staffs = new[] {
+                new Employee { Name = "西村 要"    , Number =   3, Department = departments[0] },
+                new Employee { Name = "川村 咲"    , Number = 101, Department = departments[1] },
+                new Employee { Name = "東 さくら"  , Number =  40, Department = departments[1] },
+                new Employee { Name = "柴咲 育三郎", Number =  27, Department = departments[2] }
+            };
+
+            System.Console.WriteLine("(1) GridView.Show(departments)");
+
+            GridView.Show(dataSource: departments, hasFrame: true);
+
+            System.Console.WriteLine("(2.1) GridView.Show(staffs)");
+
+            GridView.Show(dataSource: staffs, hasFrame: true);
+
+            System.Console.WriteLine("(2.1) GridView.Show(staffs.Select(...))");
+
+            GridView.Show(
+                dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" }),
+                hasFrame: true
+            );
+        }
+
         static void Main()
         {
-            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合 }
-            .ForEach(test =>
+            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
+            .ForEach((index, test) =>
             {
+                System.Console.WriteLine($"■ Test {index + 1}");
                 test();
                 System.Console.WriteLine();
             });

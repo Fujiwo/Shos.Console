@@ -110,6 +110,8 @@ namespace Shos.Console
 
         public static bool Show(object dataSource, bool hasFrame = false)
         {
+            Initialize();
+
             var (collection, rowNumber, properties) = dataSource.GetProperties();
             if (collection is null || rowNumber == 0 || properties is null)
                 return false;
@@ -186,6 +188,8 @@ namespace Shos.Console
         }
 
         static string separator = "";
+
+        static string Initialize() => separator = "";
 
         static string GetSeparator(IEnumerable<Column> columns)
         {
