@@ -3,6 +3,8 @@ Shos.Console
 
 See the sample: https://github.com/Fujiwo/Shos.Console/blob/main/Shos.Console.Sample/Program.cs
 
+NuGet Gallery: Shos.Console 1.0.1 https://www.nuget.org/packages/Shos.Console/1.0.1
+
 ```Shos.Console.Sample/Program.cs
 
 using System.Collections.Generic;
