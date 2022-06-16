@@ -43,28 +43,28 @@ namespace Shos.Console
 
             bool IsRightJustified(object? item)
                 => item switch {
-                    int value => true,
-                    uint value => true,
-                    short value => true,
-                    ushort value => true,
-                    long value => true,
-                    ulong value => true,
-                    double value => true,
-                    float value => true,
-                    decimal value => true,
-                    _ => false
+                    int     value => true ,
+                    uint    value => true ,
+                    short   value => true ,
+                    ushort  value => true ,
+                    long    value => true ,
+                    ulong   value => true ,
+                    double  value => true ,
+                    float   value => true ,
+                    decimal value => true ,
+                    _             => false
                 };
 
             string ToString(object? item)
                 => item switch {
                     double value => value.ToString("F1"),
-                    float value => value.ToString("F1"),
-                    _ => item?.ToString()
+                    float  value => value.ToString("F1"),
+                    _            => item?.ToString(    )
                 } ?? "";
 
             string ToCellText(string? text, bool rightJustified = false)
             {
-                text = text ?? "";
+                text       = text ?? "";
                 var spaces = new string(' ', Width - text.Length());
 
                 StringBuilder stringBuilder = new();
@@ -89,24 +89,23 @@ namespace Shos.Console
 
         static class FrameCharacters
         {
-            public const char Space = ' ';
-            public const char Cross = '+';
+            public const char Space         = ' ';
+            public const char Cross         = '+';
             public const char HorizontalBar = '-';
-            public const char VerticalBar = '|';
+            public const char VerticalBar   = '|';
         }
 
         enum FramePosition
         {
-            First,
+            First ,
             Middle,
             Last
         }
 
-
-        public static Action<char> WriteCharacter = character => System.Console.Write(character);
-        public static Action<string> Write = text => System.Console.Write(text);
-        public static Action<string> WriteLine = text => System.Console.WriteLine(text);
-        public static Action NewLine = () => System.Console.WriteLine();
+        public static Action<char  > WriteCharacter = character => System.Console.Write    (character);
+        public static Action<string> Write          = text      => System.Console.Write    (text     );
+        public static Action<string> WriteLine      = text      => System.Console.WriteLine(text     );
+        public static Action         NewLine        = ()        => System.Console.WriteLine(         );
 
         public static bool Show(object dataSource, bool hasFrame = false)
         {
@@ -146,7 +145,7 @@ namespace Shos.Console
                 if (collectionCount > 0) {
                     var enumerator = collection.GetEnumerator();
                     enumerator.MoveNext();
-                    var type = enumerator.Current.GetType();
+                    var type       = enumerator.Current.GetType();
                     var properties = type.GetProperties();
 
                     if (properties.Length > 0)
