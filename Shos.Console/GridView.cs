@@ -107,6 +107,8 @@ namespace Shos.Console
         public static Action<string> WriteLine      = text      => System.Console.WriteLine(text     );
         public static Action         NewLine        = ()        => System.Console.WriteLine(         );
 
+        public static bool ShowTable(this object @this, bool hasFrame = true) => Show(@this, hasFrame);
+
         public static bool Show(object dataSource, bool hasFrame = false)
         {
             Initialize();

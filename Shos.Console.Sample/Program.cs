@@ -108,12 +108,19 @@ namespace Shos.Console.Sample
 
             GridView.Show(dataSource: staffs, hasFrame: true);
 
-            System.Console.WriteLine("(2.1) GridView.Show(staffs.Select(...))");
+            System.Console.WriteLine("(2.2) GridView.Show(staffs.Select(...))");
 
             GridView.Show(
                 dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" }),
                 hasFrame: true
             );
+
+            System.Console.WriteLine("(2.3) staffs.Select(...).ShowTable() | Extension method version");
+
+            // Extension method version
+            staffs.OrderBy(staff => staff.Number)
+                  .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" })
+                  .ShowTable();
         }
 
         static void Main()
