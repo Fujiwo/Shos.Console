@@ -30,7 +30,7 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 ### GridView
 
 * Draw a collection as a table to console
-* Zenkaku (全角) / Hankaku (半角) 対応
+* Support for full-width and half-width characters (所謂全角・半角文字対応)
 * for .NET 6.0 or later
 
 ## Sample
