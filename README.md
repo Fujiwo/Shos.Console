@@ -3,7 +3,7 @@ Shos.Console
 
 ## Summary
 
-Console Library (.NET 6.0)
+Console Library (.NET 8.0)
 
 A library for Console.
 
@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.0.2
+    PM>Install-Package Shos.Console -version 1.0.3
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.0.2
+    >dotnet add package Shos.Console --version 1.0.3
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.0.2" />
+    <PackageReference Include="Shos.Console" Version="1.0.3" />
 
 ## Projects
 
@@ -268,7 +268,7 @@ Fujio Kojima: a software developer in Japan
 * Microsoft MVP for Development Tools - Visual C# (Jul. 2005 - Dec. 2014)
 * Microsoft MVP for .NET (Jan. 2015 - Oct. 2015)
 * Microsoft MVP for Visual Studio and Development Technologies (Nov. 2015 - Jun. 2018)
-* Microsoft MVP for Developer Technologies (Nov. 2018 - Jun. 2022)
+* Microsoft MVP for Developer Technologies (Nov. 2018 - Jun. 2024)
 * [MVP Profile](https://mvp.microsoft.com/en-us/PublicProfile/21482 "MVP Profile")
 * [Blog (Japanese)](http://wp.shos.info "Blog (Japanese)")
 * [Web Site (Japanese)](http://www.shos.info "Web Site (Japanese)")

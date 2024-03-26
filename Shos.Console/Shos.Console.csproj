@@ -1,28 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>Shos.Console</RootNamespace>
-    <AssemblyName>Shos.Console</AssemblyName>
-	  <Copyright>Copyright © 2022 Fujio Kojima</Copyright>
-	  <Version>1.0.2.1</Version>
-	  <Description>
-		  Console Library (.NET 6.0)
 
-		  A library for Console.
-		  - GridView: Draw a collection as a table to console
-		  (for .NET 6.0 or later)
-	  </Description>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
-	  <AssemblyVersion>1.0.2.1</AssemblyVersion>
-	  <FileVersion>1.0.2.1</FileVersion>
-	  <PackageTags>console gridview table</PackageTags>
-	  <NeutralLanguage>en</NeutralLanguage>
-	  <Authors>Fujio Kojima</Authors>
-	  <Company>Sho's Software</Company>
-	  <PackageLicenseUrl></PackageLicenseUrl>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
-</Project>
+	<PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+		<RootNamespace>Shos.Console</RootNamespace>
+		<AssemblyName>Shos.Console</AssemblyName>
+		<Copyright>Copyright © 2022-2024 Fujio Kojima</Copyright>
+		<Version>1.0.3</Version>
+		<Description>
+			Console Library (.NET 8.0)
+
+			A library for Console.
+			- GridView: Draw a collection as a table to console
+			(for .NET 8.0 or later)
+		</Description>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
+		<AssemblyVersion>1.0.3</AssemblyVersion>
+		<FileVersion>1.0.3</FileVersion>
+		<PackageTags>console gridview table</PackageTags>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Authors>Fujio Kojima</Authors>
+		<Company>Sho's Software</Company>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	</Project>
