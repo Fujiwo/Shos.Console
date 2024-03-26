@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shos.Console.Sample
@@ -32,14 +33,14 @@ namespace Shos.Console.Sample
 
         class Staff
         {
-            public int    Number         { get; set; }
-            public string FamilyName     { get; set; } = "";
-            public string GivenName      { get; set; } = "";
+            public int Number { get; set; }
+            public string FamilyName { get; set; } = "";
+            public string GivenName { get; set; } = "";
             public string FullName => $"{FamilyName} {GivenName}";
             public string FamilyNameRuby { get; set; } = "";
-            public string GivenNameRuby  { get; set; } = "";
+            public string GivenNameRuby { get; set; } = "";
             public string FullNameRuby => $"{FamilyNameRuby} {GivenNameRuby}";
-            public string Email          { get; set; } = "";
+            public string Email { get; set; } = "";
         }
 
         static void クラス利用の場合()
@@ -61,12 +62,12 @@ namespace Shos.Console.Sample
             GridView.Show(
                 dataSource: staffs.OrderBy(staff => staff.Number)
                                   .Select(staff => new {
-                    社員番号 = staff.Number      ,
-                    氏名     = staff.FullName    ,
-                    ﾌﾘｶﾞﾅ    = staff.FullNameRuby,
-                    ﾒｰﾙ      = staff.Email       ,
-                    得点     = scoreTable[staff.Number]
-                }),
+                                      社員番号 = staff.Number,
+                                      氏名 = staff.FullName,
+                                      ﾌﾘｶﾞﾅ = staff.FullNameRuby,
+                                      ﾒｰﾙ = staff.Email,
+                                      得点 = scoreTable[staff.Number]
+                                  }),
                 hasFrame: true
             );
         }
@@ -111,7 +112,7 @@ namespace Shos.Console.Sample
             System.Console.WriteLine("(2.2) GridView.Show(staffs.Select(...))");
 
             GridView.Show(
-                dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" }),
+                dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = $"{staff.Department?.Name ?? ""}({staff.Department?.Code})" }),
                 hasFrame: true
             );
 
@@ -119,15 +120,14 @@ namespace Shos.Console.Sample
 
             // Extension method version
             staffs.OrderBy(staff => staff.Number)
-                  .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" })
+                  .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = $"{staff.Department?.Name ?? ""}({staff.Department?.Code})" })
                   .ShowTable();
         }
 
         static void Main()
         {
             new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
-            .ForEach((index, test) =>
-            {
+            .ForEach((index, test) => {
                 System.Console.WriteLine($"■ Test {index + 1}");
                 test();
                 System.Console.WriteLine();

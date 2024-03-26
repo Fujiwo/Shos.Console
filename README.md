@@ -164,7 +164,7 @@ namespace Shos.Console.Sample
             System.Console.WriteLine("(2.2) GridView.Show(staffs.Select(...))");
 
             GridView.Show(
-                dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" }),
+                dataSource: staffs.Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = $"{staff.Department?.Name ?? ""}({staff.Department?.Code})" }),
                 hasFrame: true
             );
 
@@ -172,7 +172,7 @@ namespace Shos.Console.Sample
 
             // Extension method version
             staffs.OrderBy(staff => staff.Number)
-                  .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = staff.Department?.Name ?? "" })
+                  .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = $"{staff.Department?.Name ?? ""}({staff.Department?.Code})" })
                   .ShowTable();
         }
 
@@ -242,24 +242,23 @@ Number Name            Email              Score
 | 柴咲 育三郎 |     27 | Shos.Console.Sample.Program+Department |
 +-------------+--------+----------------------------------------+
 (2.2) GridView.Show(staffs.Select(...))
-+-------------+------+--------+
-| 名前        | 番号 | 部署   |
-+-------------+------+--------+
-| 西村 要     |    3 | 人事部 |
-| 川村 咲     |  101 | 経理部 |
-| 東 さくら   |   40 | 経理部 |
-| 柴咲 育三郎 |   27 | R&D室  |
-+-------------+------+--------+
++-------------+------+--------------+
+| 名前        | 番号 | 部署         |
++-------------+------+--------------+
+| 西村 要     |    3 | 人事部(1001) |
+| 川村 咲     |  101 | 経理部(501)  |
+| 東 さくら   |   40 | 経理部(501)  |
+| 柴咲 育三郎 |   27 | R&D室(3001)  |
++-------------+------+--------------+
 (2.3) staffs.Select(...).ShowTable() | Extension method version
-+-------------+------+--------+
-| 名前        | 番号 | 部署   |
-+-------------+------+--------+
-| 西村 要     |    3 | 人事部 |
-| 柴咲 育三郎 |   27 | R&D室  |
-| 東 さくら   |   40 | 経理部 |
-| 川村 咲     |  101 | 経理部 |
-+-------------+------+--------+
-
++-------------+------+--------------+
+| 名前        | 番号 | 部署         |
++-------------+------+--------------+
+| 西村 要     |    3 | 人事部(1001) |
+| 柴咲 育三郎 |   27 | R&D室(3001)  |
+| 東 さくら   |   40 | 経理部(501)  |
+| 川村 咲     |  101 | 経理部(501)  |
++-------------+------+--------------+
 ```
 
 ## Author Info
