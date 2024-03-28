@@ -41,7 +41,7 @@ namespace Shos.Console
             int GetWidth() => Items.Select(item => ToString(item).Length()).Max();
             string[] GetTexts() => Items.Select(item => ToCellText(ToString(item), rightJustified: IsRightJustified(item))).ToArray();
 
-            bool IsRightJustified(object? item)
+            static bool IsRightJustified(object? item)
                 => item switch {
                     int     value => true ,
                     uint    value => true ,
@@ -55,7 +55,7 @@ namespace Shos.Console
                     _             => false
                 };
 
-            string ToString(object? item)
+            static string ToString(object? item)
                 => item switch {
                     double value => value.ToString("F1"),
                     float  value => value.ToString("F1"),

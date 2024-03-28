@@ -5,15 +5,16 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{C9B5D253-3F80-4D09-A082-AD8F4C00AE2D}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shos.Console", "Shos.Console\Shos.Console.csproj", "{31F49A38-32A0-4ED5-907C-BC79F90A2851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shos.Console", "Shos.Console\Shos.Console.csproj", "{31F49A38-32A0-4ED5-907C-BC79F90A2851}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shos.Console.Sample", "Shos.Console.Sample\Shos.Console.Sample.csproj", "{7CAAC533-5437-47D5-BBA6-EDFACCEDE507}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shos.Console.Sample", "Shos.Console.Sample\Shos.Console.Sample.csproj", "{7CAAC533-5437-47D5-BBA6-EDFACCEDE507}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shos.ConsoleTests", "Shos.ConsoleTests\Shos.ConsoleTests.csproj", "{05A09497-6812-4988-9180-7AF2CC07A89B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shos.ConsoleTests", "Shos.ConsoleTests\Shos.ConsoleTests.csproj", "{05A09497-6812-4988-9180-7AF2CC07A89B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
