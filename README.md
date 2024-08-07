@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.0.3
+    PM>Install-Package Shos.Console -version 1.0.4
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.0.3
+    >dotnet add package Shos.Console --version 1.0.4
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.0.3" />
+    <PackageReference Include="Shos.Console" Version="1.0.4" />
 
 ## Projects
 
@@ -36,6 +36,10 @@ Library.
 * Draw a collection as a table to console
 * Support for full-width and half-width characters (所謂全角・半角文字対応)
 * for .NET 6.0 or later
+
+#### ConsoleHelper
+* public static string ReadPassword(string message)
+** Reads a password from the console input and returns its hashed value.
 
 ### Shos.Console.Sample
 

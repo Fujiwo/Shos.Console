@@ -1,9 +1,13 @@
 
-using System.Collections.Generic;
-using System.Linq;
+#define TEST1
+#define TEST2
 
 namespace Shos.Console.Sample
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     // Japanese (日本語)
     class Program
     {
@@ -126,12 +130,29 @@ namespace Shos.Console.Sample
 
         static void Main()
         {
+#if TEST1
             new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
             .ForEach((index, test) => {
                 System.Console.WriteLine($"■ Test {index + 1}");
                 test();
                 System.Console.WriteLine();
             });
+#endif // TEST1
+#if TEST2
+            ReadPasswordSample();
+#endif // TEST2
+        }
+
+        /// <summary>Tests the password reading functionality.</summary>
+        static void ReadPasswordSample()
+        {
+            const string message = "Input password";
+
+            var hash1 = ConsoleHelper.ReadPassword(message);
+            var hash2 = ConsoleHelper.ReadPassword(message);
+            var result = hash1 == hash2 ? "OK" : "NG";
+
+            Console.WriteLine($"1:{hash1}\n2:{hash2}\nresult: {result}");
         }
     }
 }
