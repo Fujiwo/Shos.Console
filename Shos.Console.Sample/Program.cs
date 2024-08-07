@@ -1,6 +1,6 @@
-
-#define TEST1
-#define TEST2
+#define GRID_VIEW_SAMPLE
+#define READ_PASSWORD_SAMPLE
+#define COLOR_SETTER_SAMPLE
 
 namespace Shos.Console.Sample
 {
@@ -130,17 +130,20 @@ namespace Shos.Console.Sample
 
         static void Main()
         {
-#if TEST1
+#if GRID_VIEW_SAMPLE
             new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
             .ForEach((index, test) => {
                 System.Console.WriteLine($"■ Test {index + 1}");
                 test();
                 System.Console.WriteLine();
             });
-#endif // TEST1
-#if TEST2
+#endif // GRID_VIEW_SAMPLE
+#if READ_PASSWORD_SAMPLE
             ReadPasswordSample();
-#endif // TEST2
+#endif // READ_PASSWORD_SAMPLE
+#if COLOR_SETTER_SAMPLE
+            ColorSetterSample();
+#endif // COLOR_SETTER_SAMPLE
         }
 
         /// <summary>Tests the password reading functionality.</summary>
@@ -153,6 +156,19 @@ namespace Shos.Console.Sample
             var result = hash1 == hash2 ? "OK" : "NG";
 
             Console.WriteLine($"1:{hash1}\n2:{hash2}\nresult: {result}");
+        }
+
+        static void ColorSetterSample()
+        {
+            Console.WriteLine("Normal.");
+            using (var colorSetter = new ColorSetter(foregroundColor: ConsoleColor.Red, backgroundColor: ConsoleColor.Gray)) {
+                Console.WriteLine("Red on Gray.");
+            }
+            Console.WriteLine("Normal.");
+            using (var colorSetter = new ColorSetter(foregroundColor: ConsoleColor.Yellow, backgroundColor: ConsoleColor.DarkBlue)) {
+                Console.WriteLine("Yellow on DarkBlue.");
+            }
+            Console.WriteLine("Normal.");
         }
     }
 }

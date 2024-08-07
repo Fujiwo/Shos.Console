@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.0.4
+    PM>Install-Package Shos.Console -version 1.0.7
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.0.4
+    >dotnet add package Shos.Console --version 1.0.7
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.0.4" />
+    <PackageReference Include="Shos.Console" Version="1.0.7" />
 
 ## Projects
 
@@ -40,6 +40,10 @@ Library.
 #### ConsoleHelper
 * public static string ReadPassword(string message)
 ** Reads a password from the console input and returns its hashed value.
+
+#### ColorSetter
+
+* A class that temporarily sets the console foreground and background colors.
 
 ### Shos.Console.Sample
 
