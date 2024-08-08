@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.0.8
+    PM>Install-Package Shos.Console -version 1.0.9
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.0.8
+    >dotnet add package Shos.Console --version 1.0.9
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.0.8" />
+    <PackageReference Include="Shos.Console" Version="1.0.9" />
 
 ## Projects
 
@@ -44,6 +44,10 @@ Library.
 #### ColorSetter
 
 * A class that temporarily sets the console foreground and background colors.
+
+#### JapaneseTextNormalizer
+
+* Provides methods to normalize Japanese text by converting inappropriate ASCII characters and half-width katakana to their appropriate forms.
 
 ### Shos.Console.Sample
 
