@@ -102,7 +102,7 @@
         /// <summary>Normalizes the specified string by converting inappropriate ASCII characters and half-width katakana to their appropriate forms.</summary>
         /// <param name="this">The string to normalize.</param>
         /// <returns>An enumerable of normalized characters.</returns>
-        public static IEnumerable<char> ApplyAll(this string @this)
+        static IEnumerable<char> ApplyAll(this string @this)
         {
             for (var index = 0; index < @this.Length; index++) {
                 yield return
