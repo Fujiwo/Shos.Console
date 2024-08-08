@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.0.7
+    PM>Install-Package Shos.Console -version 1.0.8
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.0.7
+    >dotnet add package Shos.Console --version 1.0.8
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.0.7" />
+    <PackageReference Include="Shos.Console" Version="1.0.8" />
 
 ## Projects
 
