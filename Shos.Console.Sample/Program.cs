@@ -168,7 +168,9 @@ namespace Shos.Console.Sample
             using (var colorSetter = new ColorSetter(foregroundColor: ConsoleColor.Yellow, backgroundColor: ConsoleColor.DarkBlue)) {
                 Console.WriteLine("Yellow on DarkBlue.");
             }
-            Console.WriteLine("Normal.");
+            using (var colorSetter = new ColorSetter()) {
+                Console.WriteLine("Normal.");
+            }
         }
     }
 }

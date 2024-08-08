@@ -11,7 +11,7 @@
         /// <summary>Initializes a new instance of the <see cref="ColorSetter"/> class and sets the console colors.</summary>
         /// <param name="foregroundColor">The foreground color to set.</param>
         /// <param name="backgroundColor">The background color to set.</param>
-        public ColorSetter(ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+        public ColorSetter(ConsoleColor foregroundColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             (currentForegroundColor, currentBackgroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
             (Console.ForegroundColor, Console.BackgroundColor) = (foregroundColor, backgroundColor);
