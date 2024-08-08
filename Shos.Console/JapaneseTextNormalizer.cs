@@ -97,7 +97,7 @@
         /// <summary>Normalizes the specified string by converting inappropriate ASCII characters and half-width katakana to their appropriate forms.</summary>
         /// <param name="this">The string to normalize.</param>
         /// <returns>A new string with normalized characters.</returns>
-        public static string Apply(this string @this) => new string(@this.ApplyAll().ToArray());
+        public static string Apply(this string @this) => new(@this.ApplyAll().ToArray());
 
         /// <summary>Normalizes the specified string by converting inappropriate ASCII characters and half-width katakana to their appropriate forms.</summary>
         /// <param name="this">The string to normalize.</param>
@@ -116,21 +116,21 @@
         /// <param name="this">The character to normalize.</param>
         /// <returns>The normalized character.</returns>
         static char Apply(this char @this)
-            => characterTable.TryGetValue(new string(new[] { @this }), out var result) ? result : @this;
+            => characterTable.TryGetValue(new string([@this]), out var result) ? result : @this;
 
         /// <summary>Normalizes the specified characters by converting them to their appropriate form if they are inappropriate ASCII characters or half-width katakana.</summary>
         /// <param name="character1">The first character to normalize.</param>
         /// <param name="character2">The second character to normalize.</param>
         /// <returns>The normalized character.</returns>
         static char Apply(char character1, char character2)
-            => characterTable.TryGetValue(new string(new[] { character1, character2 }), out var result) ? result : character1;
+            => characterTable.TryGetValue(new string([character1, character2]), out var result) ? result : character1;
 
         /// <summary>Initializes the <see cref="JapaneseTextNormalizer"/> class by populating the character table with mappings from inappropriate ASCII characters to appropriate ASCII characters.</summary>
         static JapaneseTextNormalizer()
         {
             var length = Math.Min(inappropriateAsciiCharacters.Length, appropriateAsciiCharacters.Length);
             for (var index = 0; index < length; index++)
-                characterTable[new string(new[] { inappropriateAsciiCharacters[index] })] = appropriateAsciiCharacters[index];
+                characterTable[new string([inappropriateAsciiCharacters[index]])] = appropriateAsciiCharacters[index];
         }
     }
 }

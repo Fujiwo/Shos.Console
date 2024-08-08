@@ -13,23 +13,11 @@ namespace Shos.Console
         {
             int? width = null;
 
-            public int Width {
-                get {
-                    if (width is null)
-                        width = GetWidth();
-                    return width.Value;
-                }
-            }
+            public int Width => width ??= GetWidth();
 
             string[]? texts = null;
 
-            IList<string> Texts {
-                get {
-                    if (texts is null)
-                        texts = GetTexts();
-                    return texts;
-                }
-            }
+            IList<string> Texts => texts ??= GetTexts();
 
             string Header { get; init; }
             IEnumerable<object?> Values { get; init; }
@@ -38,21 +26,21 @@ namespace Shos.Console
 
             public string this[int index] => Texts[index];
 
-            int GetWidth() => Items.Select(item => ToString(item).Length()).Max();
+            int GetWidth() => Items.Max(item => ToString(item).Length());
             string[] GetTexts() => Items.Select(item => ToCellText(ToString(item), rightJustified: IsRightJustified(item))).ToArray();
 
             static bool IsRightJustified(object? item)
                 => item switch {
-                    int     value => true ,
-                    uint    value => true ,
-                    short   value => true ,
-                    ushort  value => true ,
-                    long    value => true ,
-                    ulong   value => true ,
-                    double  value => true ,
-                    float   value => true ,
-                    decimal value => true ,
-                    _             => false
+                    int     => true ,
+                    uint    => true ,
+                    short   => true ,
+                    ushort  => true ,
+                    long    => true ,
+                    ulong   => true ,
+                    double  => true ,
+                    float   => true ,
+                    decimal => true ,
+                    _        => false
                 };
 
             static string ToString(object? item)
@@ -64,7 +52,7 @@ namespace Shos.Console
 
             string ToCellText(string? text, bool rightJustified = false)
             {
-                text       = text ?? "";
+                text     ??= "";
                 var spaces = new string(' ', Width - text.Length());
 
                 StringBuilder stringBuilder = new();

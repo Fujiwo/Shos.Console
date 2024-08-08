@@ -7,7 +7,7 @@
 		<RootNamespace>Shos.Console</RootNamespace>
 		<AssemblyName>Shos.Console</AssemblyName>
 		<Copyright>Copyright © 2022-2024 Fujio Kojima</Copyright>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Description>
 			Console Library (.NET 8.0)
 
@@ -18,8 +18,8 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
-		<AssemblyVersion>1.1.0</AssemblyVersion>
-		<FileVersion>1.1.0</FileVersion>
+		<AssemblyVersion>1.1.1</AssemblyVersion>
+		<FileVersion>1.1.1</FileVersion>
 		<PackageTags>console gridview table color password</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Authors>Fujio Kojima</Authors>
@@ -32,7 +32,7 @@
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Roslynator.Analyzers" Version="4.12.0">
+	  <PackageReference Include="Roslynator.Analyzers" Version="4.12.4">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
