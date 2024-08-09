@@ -1,7 +1,6 @@
 #define GRID_VIEW_SAMPLE
 #define READ_PASSWORD_SAMPLE
 #define COLOR_SETTER_SAMPLE
-#define JAPANESE_TEXT_NORMALIZER_SAMPLE
 
 namespace Shos.Console.Sample
 {
@@ -145,9 +144,6 @@ namespace Shos.Console.Sample
 #if COLOR_SETTER_SAMPLE
             ColorSetterSample();
 #endif // COLOR_SETTER_SAMPLE
-#if JAPANESE_TEXT_NORMALIZER_SAMPLE
-            JapaneseTextNormalizerSample();
-#endif // JAPANESE_TEXT_NORMALIZER_SAMPLE
         }
 
         /// <summary>Tests the password reading functionality.</summary>
@@ -175,31 +171,6 @@ namespace Shos.Console.Sample
             using (var colorSetter = new ColorSetter()) {
                 Console.WriteLine("Normal.");
             }
-        }
-
-        static void JapaneseTextNormalizerSample()
-        {
-            const string inappropriateAsciiCharacters = "　！”＃＄％＆’（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［￥］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝￣";
-            const string appropriateAsciiCharacters   = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-            const string inappropriateKanaCharacters  = "゠ｧｱｨｲｩｳｪｴｫｵｶｶﾞｷｷﾞｸｸﾞｹｹﾞｺｺﾞｻｻﾞｼｼﾞｽｽﾞｾｾﾞｿｿﾞﾀﾀﾞﾁﾁﾞｯﾂﾂﾞﾃﾃﾞﾄﾄﾞﾅﾆﾇﾈﾉﾊﾊﾞﾊﾟﾋﾋﾞﾋﾟﾌﾌﾞﾌﾟﾍﾍﾞﾍﾟﾎﾎﾞﾎﾟﾏﾐﾑﾒﾓｬﾔｭﾕｮﾖﾗﾘﾙﾚﾛヮﾜヰヱｦﾝｳﾞヵヶヷヸヹヺ･ｰヽヾヿ｡｢｣､ﾞﾟﾟﾞﾞ";
-            const string appropriateKanaCharacters    = "゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ。「」、゛゜゜゛゛";
-
-            var text = appropriateAsciiCharacters.Apply();
-            Console.WriteLine(appropriateAsciiCharacters);
-            Console.WriteLine(text);
-            Console.WriteLine(text == appropriateAsciiCharacters);
-
-            Console.WriteLine(inappropriateAsciiCharacters);
-            text = inappropriateAsciiCharacters.Apply();
-            Console.WriteLine(appropriateAsciiCharacters);
-            Console.WriteLine(text);
-            Console.WriteLine(text == appropriateAsciiCharacters);
-
-            Console.WriteLine(inappropriateKanaCharacters);
-            text = inappropriateKanaCharacters.Apply();
-            Console.WriteLine(text);
-            Console.WriteLine(text == appropriateKanaCharacters);
         }
     }
 }
