@@ -187,10 +187,22 @@ namespace Shos.Console.Sample
                   .Select(staff => new { 名前 = staff.Name, 番号 = staff.Number, 部署 = $"{staff.Department?.Name ?? ""}({staff.Department?.Code})" })
                   .ShowTable();
         }
+        
+        static void カラム名ごとにデータを渡す場合()
+        {
+            var 全社員 = new (string, IEnumerable<object?>)[] {
+                ("社員番号", new object[] { 101, 111, 120, 9, 100 }),
+                ("氏名"   , new object[] { "吉田 拓郎", "中島 みゆき", "鬼龍院 翔", "西野 かな" }),
+                ("ﾌﾘｶﾞﾅ"   , new object[] { "ﾖｼﾀﾞ ﾀｸﾛｳ", "ﾅｶｼﾞﾏ ﾐﾕｷ", "ｷﾘｭｳｲﾝ ｼｮｳ", "ﾆｼﾉ ｶﾅ" }),
+                ("ﾒｰﾙ"   , new object[] { "takuro.y@xxx.com", "m.nakajima@xxx.com", "eiichi@xxx.com", "kana@xxx.com" }),
+            };
+
+            GridView.Show(dataSource: 全社員, hasFrame: true);
+        }
 
         static void Main()
         {
-            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
+            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合, カラム名ごとにデータを渡す場合 }
             .ForEach((index, test) =>
             {
                 System.Console.WriteLine($"■ Test {index + 1}");
@@ -271,6 +283,17 @@ Number Name            Email              Score
 | 東 さくら   |   40 | 経理部(501)  |
 | 川村 咲     |  101 | 経理部(501)  |
 +-------------+------+--------------+
+
+■ Test 5
++----------+-------------+------------+--------------------+
+| 社員番号 | 氏名        | ﾌﾘｶﾞﾅ      | ﾒｰﾙ                |
++----------+-------------+------------+--------------------+
+|      101 | 吉田 拓郎   | ﾖｼﾀﾞ ﾀｸﾛｳ  | takuro.y@xxx.com   |
+|      111 | 中島 みゆき | ﾅｶｼﾞﾏ ﾐﾕｷ  | m.nakajima@xxx.com |
+|      120 | 鬼龍院 翔   | ｷﾘｭｳｲﾝ ｼｮｳ | eiichi@xxx.com     |
+|        9 | 西野 かな   | ﾆｼﾉ ｶﾅ     | kana@xxx.com       |
+|      100 |             |            |                    |
++----------+-------------+------------+--------------------+
 ```
 
 ## Author Info
