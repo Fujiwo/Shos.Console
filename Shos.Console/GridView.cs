@@ -96,6 +96,7 @@ namespace Shos.Console
         public static Action         NewLine        = ()        => System.Console.WriteLine(         );
 
         public static bool ShowTable(this object @this, bool hasFrame = true) => Show(@this, hasFrame);
+        public static void ShowTable(this IEnumerable<(string colomnName, IEnumerable<object?> values)> @this, bool hasFrame = true) => Show(@this, hasFrame);
 
         public static bool Show(object dataSource, bool hasFrame = false)
         {

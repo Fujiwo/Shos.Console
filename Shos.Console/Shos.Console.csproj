@@ -7,7 +7,7 @@
 		<RootNamespace>Shos.Console</RootNamespace>
 		<AssemblyName>Shos.Console</AssemblyName>
 		<Copyright>Copyright © 2022-2024 Fujio Kojima</Copyright>
-		<Version>1.1.4</Version>
+		<Version>1.1.5</Version>
 		<Description>
 			Console Library (.NET 8.0)
 
@@ -18,8 +18,8 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
-		<AssemblyVersion>1.1.4</AssemblyVersion>
-		<FileVersion>1.1.4</FileVersion>
+		<AssemblyVersion>1.1.5</AssemblyVersion>
+		<FileVersion>1.1.5</FileVersion>
 		<PackageTags>console gridview table color password</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Authors>Fujio Kojima</Authors>

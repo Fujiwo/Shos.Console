@@ -15,15 +15,15 @@ You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.or
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.1.4
+    PM>Install-Package Shos.Console -version 1.1.5
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.1.4
+    >dotnet add package Shos.Console --version 1.1.5
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.1.4" />
+    <PackageReference Include="Shos.Console" Version="1.1.5" />
 
 ## Projects
 
@@ -199,10 +199,37 @@ namespace Shos.Console.Sample
 
             GridView.Show(dataSource: 全社員, hasFrame: true);
         }
+        struct MenuItem
+        {
+            public enum Kind { 社員, 部署, その他 };
+
+            public string Key { get; set; }
+            public string Title { get; set; }
+        }
+
+        static void カラム名ごとにデータを渡す場合応用編()
+        {
+            var menuItems = new (MenuItem, MenuItem.Kind)[] {
+                (new MenuItem { Key = "1", Title = "検索" }, MenuItem.Kind.社員),
+                (new MenuItem { Key = "2", Title = "追加" }, MenuItem.Kind.社員),
+                (new MenuItem { Key = "3", Title = "削除" }, MenuItem.Kind.社員),
+                (new MenuItem { Key = "4", Title = "変更" }, MenuItem.Kind.社員),
+                (new MenuItem { Key = "1", Title = "検索" }, MenuItem.Kind.部署),
+                (new MenuItem { Key = "2", Title = "追加" }, MenuItem.Kind.部署),
+                (new MenuItem { Key = "3", Title = "削除" }, MenuItem.Kind.部署),
+                (new MenuItem { Key = "4", Title = "変更" }, MenuItem.Kind.部署),
+                (new MenuItem { Key = "1", Title = "保存" }, MenuItem.Kind.その他),
+                (new MenuItem { Key = "2", Title = "終了" }, MenuItem.Kind.その他)
+            };
+
+            var groups = menuItems.GroupBy(x => x.Item2);
+            var dataSource = groups.Select(x => (x.Key.ToString(), x.Select(_ => (object?)$"({_.Item1.Key}){_.Item1.Title}")));
+            dataSource.ShowTable(hasFrame: true);
+        }
 
         static void Main()
         {
-            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合, カラム名ごとにデータを渡す場合 }
+            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合, カラム名ごとにデータを渡す場合, カラム名ごとにデータを渡す場合応用編 }
             .ForEach((index, test) =>
             {
                 System.Console.WriteLine($"■ Test {index + 1}");
