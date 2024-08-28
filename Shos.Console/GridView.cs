@@ -24,7 +24,7 @@ namespace Shos.Console
 
             public Column(string header, IEnumerable<object?> values) => (Header, Values) = (header, values);
 
-            public string this[int index] => Texts[index];
+            public string this[int index] => 0 <= index && index < Texts.Count ? Texts[index] : ToCellText("");
 
             int GetWidth() => Items.Max(item => ToString(item).Width());
             string[] GetTexts() => Items.Select(item => ToCellText(ToString(item), rightJustified: IsRightJustified(item))).ToArray();
@@ -40,7 +40,7 @@ namespace Shos.Console
                     double  => true ,
                     float   => true ,
                     decimal => true ,
-                    _        => false
+                    _       => false
                 };
 
             static string ToString(object? item)
@@ -107,6 +107,20 @@ namespace Shos.Console
 
             var columns = properties.Select(property => new Column(header: property.Name,
                                                                    values: collection.Select<object, object?>(element => property.GetValue(element))));
+            Show(columns, rowNumber, hasFrame);
+            return true;
+        }
+
+        public static void Show(IEnumerable<(string colomnName, IEnumerable<object?> values)> dataSource, bool hasFrame = false)
+        {
+            var rowNumber = dataSource.Max(data => data.values.Count());
+            var columns = dataSource.Select(data => new Column(header: data.colomnName, values: data.values));
+            Show(columns, rowNumber, hasFrame);
+        }
+
+        static void Show(IEnumerable<Column> columns, int rowNumber, bool hasFrame = false)
+        {
+            Initialize();
 
             ShowSeparator(columns, hasFrame);
 
@@ -123,9 +137,8 @@ namespace Shos.Console
                       });
 
             ShowSeparator(columns, hasFrame);
-
-            return true;
         }
+
 
         static (IEnumerable?, int, PropertyInfo[]?) GetProperties(this object? @this)
         {

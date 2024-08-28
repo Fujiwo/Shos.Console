@@ -128,10 +128,29 @@ namespace Shos.Console.Sample
                   .ShowTable();
         }
 
+        static void カラム名ごとにデータを渡す場合()
+        {
+            //var 全社員 = new[] {
+            //    new { 社員番号 = 101, 氏名 = "吉田 拓郎  ", ﾌﾘｶﾞﾅ = "ﾖｼﾀﾞ ﾀｸﾛｳ" , ﾒｰﾙ = "takuro.y@xxx.com"  , 点数 =   0.0 },
+            //    new { 社員番号 = 111, 氏名 = "中島 みゆき", ﾌﾘｶﾞﾅ = "ﾅｶｼﾞﾏ ﾐﾕｷ" , ﾒｰﾙ = "m.nakajima@xxx.com", 点数 =   8.3 },
+            //    new { 社員番号 = 120, 氏名 = "鬼龍院 翔"  , ﾌﾘｶﾞﾅ = "ｷﾘｭｳｲﾝ ｼｮｳ", ﾒｰﾙ = "eiichi@xxx.com"    , 点数 =  99.7 },
+            //    new { 社員番号 =   9, 氏名 = "西野 かな"  , ﾌﾘｶﾞﾅ = "ﾆｼﾉ ｶﾅ"    , ﾒｰﾙ = "kana@xxx.com"      , 点数 = 100.0 }
+            //}.OrderBy(社員 => 社員.氏名);
+
+            var 全社員 = new (string, IEnumerable<object?>)[] {
+                ("社員番号", new object[] { 101, 111, 120, 9, 100 }),
+                ("氏名"   , new object[] { "吉田 拓郎", "中島 みゆき", "鬼龍院 翔", "西野 かな" }),
+                ("ﾌﾘｶﾞﾅ"   , new object[] { "ﾖｼﾀﾞ ﾀｸﾛｳ", "ﾅｶｼﾞﾏ ﾐﾕｷ", "ｷﾘｭｳｲﾝ ｼｮｳ", "ﾆｼﾉ ｶﾅ" }),
+                ("ﾒｰﾙ"   , new object[] { "takuro.y@xxx.com", "m.nakajima@xxx.com", "eiichi@xxx.com", "kana@xxx.com" }),
+            };
+
+            GridView.Show(dataSource: 全社員, hasFrame: true);
+        }
+
         static void Main()
         {
 #if GRID_VIEW_SAMPLE
-            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合 }
+            new System.Action[] { 英数字記号のみの場合, 所謂全角半角混じりの場合, クラス利用の場合, クラスを2つ利用した場合, カラム名ごとにデータを渡す場合 }
             .ForEach((index, test) => {
                 System.Console.WriteLine($"■ Test {index + 1}");
                 test();
