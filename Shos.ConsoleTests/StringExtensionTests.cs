@@ -26,11 +26,11 @@ namespace Shos.Console.Tests
         [TestMethod()]
         public void LengthTest()
         {
-            Assert.AreEqual("".Length(), 0);
-            Assert.AreEqual("!".Length(), 1);
-            Assert.AreEqual("あいうえお".Length(), 5 * 2);
-            Assert.AreEqual("ｱｲｳｴｵ".Length(), 5);
-            Assert.AreEqual("!！ｱア".Length(), 1 + 2 + 1 + 2);
+            Assert.AreEqual("".Width(), 0);
+            Assert.AreEqual("!".Width(), 1);
+            Assert.AreEqual("あいうえお".Width(), 5 * 2);
+            Assert.AreEqual("ｱｲｳｴｵ".Width(), 5);
+            Assert.AreEqual("!！ｱア".Width(), 1 + 2 + 1 + 2);
         }
     }
 }

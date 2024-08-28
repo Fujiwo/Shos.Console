@@ -26,7 +26,7 @@ namespace Shos.Console
 
             public string this[int index] => Texts[index];
 
-            int GetWidth() => Items.Max(item => ToString(item).Length());
+            int GetWidth() => Items.Max(item => ToString(item).Width());
             string[] GetTexts() => Items.Select(item => ToCellText(ToString(item), rightJustified: IsRightJustified(item))).ToArray();
 
             static bool IsRightJustified(object? item)
@@ -53,7 +53,7 @@ namespace Shos.Console
             string ToCellText(string? text, bool rightJustified = false)
             {
                 text     ??= "";
-                var spaces = new string(' ', Width - text.Length());
+                var spaces = new string(' ', Width - text.Width());
 
                 StringBuilder stringBuilder = new();
                 if (rightJustified) {

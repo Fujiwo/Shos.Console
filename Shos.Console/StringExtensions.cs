@@ -4,7 +4,7 @@ namespace Shos.Console
 {
     public static class StringExtensions
     {
-        public static int Length(this string @this)
+        public static int Width(this string @this)
         {
             var length = 0;
             @this.ForEach(character => length += IsZenkaku(character) ? 2 : 1);
