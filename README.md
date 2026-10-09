@@ -9,7 +9,7 @@ A library for Console.
 
 ## NuGet
 
-You can install Shos.CsvHelper to your project with [NuGet](https://www.nuget.org) on Visual Studio.
+You can install Shos.Console to your project with [NuGet](https://www.nuget.org) on Visual Studio.
 
 * [NuGet Gallery | Shos.Console](https://www.nuget.org/packages/Shos.Console/)
 
@@ -35,11 +35,16 @@ Library.
 
 * Draw a collection as a table to console
 * Support for full-width and half-width characters (所謂全角・半角文字対応)
-* for .NET 6.0 or later
+* Targets .NET 8.0
 
 #### ConsoleHelper
 * public static string ReadPassword(string message)
-** Reads a password from the console input and returns its hashed value.
+** Reads a password from the console input and returns a salted PBKDF2-SHA256 hash.
+* public static string HashPassword(string password)
+** Creates a salted PBKDF2-SHA256 hash without reading from the console.
+* public static bool VerifyPassword(string password, string passwordHash)
+** Verifies a password against a hash returned by ReadPassword or HashPassword.
+** Hash values returned by older versions (unsalted SHA-256) are not compatible and must be migrated.
 
 #### ColorSetter
 

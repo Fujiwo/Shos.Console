@@ -1,6 +1,7 @@
 ﻿namespace Shos.Console
 {
     using System;
+    using System.Globalization;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Security.Cryptography;
@@ -10,14 +11,87 @@
     /// <summary>Provides methods for console input and output.</summary>
     public static class ConsoleHelper
     {
-        /// <summary>Reads a password from the console input and returns its hashed value.</summary>
+        const int PasswordHashIterations = 600_000;
+        const int PasswordHashSaltLength = 16;
+        const int PasswordHashKeyLength = 32;
+        const string PasswordHashAlgorithm = "shos-pbkdf2-sha256";
+
+        /// <summary>Reads a password from the console input and returns its salted PBKDF2-SHA256 hash.</summary>
         /// <param name="message">The message to display before reading the password.</param>
-        /// <returns>The hashed value of the entered password.</returns>
+        /// <returns>A versioned hash suitable for storage and verification with <see cref="VerifyPassword"/>.</returns>
+        /// <remarks>The returned hash is not compatible with values returned by earlier SHA-256-only versions.</remarks>
         public static string ReadPassword(string message)
         {
             Console.Write($"{message}: ");
             using SecureString password = ReadSecureString();
-            return ToHashString(password);
+            return HashPassword(ToPlainText(password));
+        }
+
+        /// <summary>Creates a salted PBKDF2-SHA256 hash for the specified password.</summary>
+        /// <param name="password">The password to hash.</param>
+        /// <returns>A versioned hash suitable for storage and verification with <see cref="VerifyPassword"/>.</returns>
+        /// <remarks>Hashes from earlier SHA-256-only versions are not supported by <see cref="VerifyPassword"/>.</remarks>
+        public static string HashPassword(string password)
+        {
+            ArgumentNullException.ThrowIfNull(password);
+
+            var salt = RandomNumberGenerator.GetBytes(PasswordHashSaltLength);
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[]? derivedKey = null;
+            try {
+                derivedKey = Rfc2898DeriveBytes.Pbkdf2(passwordBytes, salt, PasswordHashIterations, HashAlgorithmName.SHA256, PasswordHashKeyLength);
+                return $"{PasswordHashAlgorithm}$v1${PasswordHashIterations.ToString(CultureInfo.InvariantCulture)}${Convert.ToBase64String(salt)}${Convert.ToBase64String(derivedKey)}";
+            } finally {
+                CryptographicOperations.ZeroMemory(passwordBytes);
+                if (derivedKey is not null)
+                    CryptographicOperations.ZeroMemory(derivedKey);
+                CryptographicOperations.ZeroMemory(salt);
+            }
+        }
+
+        /// <summary>Verifies a password against a versioned hash created by <see cref="HashPassword"/>.</summary>
+        /// <param name="password">The password to verify.</param>
+        /// <param name="passwordHash">The versioned hash to verify against.</param>
+        /// <returns><see langword="true"/> when the password matches a supported hash; otherwise, <see langword="false"/>.</returns>
+        public static bool VerifyPassword(string password, string passwordHash)
+        {
+            ArgumentNullException.ThrowIfNull(password);
+            ArgumentNullException.ThrowIfNull(passwordHash);
+
+            var fields = passwordHash.Split('$');
+            if (fields.Length != 5 ||
+                fields[0] != PasswordHashAlgorithm ||
+                fields[1] != "v1" ||
+                fields[2] != PasswordHashIterations.ToString(CultureInfo.InvariantCulture))
+                return false;
+
+            byte[] salt;
+            byte[] expectedKey;
+            try {
+                salt = Convert.FromBase64String(fields[3]);
+                expectedKey = Convert.FromBase64String(fields[4]);
+            } catch (FormatException) {
+                return false;
+            }
+
+            if (salt.Length != PasswordHashSaltLength || expectedKey.Length != PasswordHashKeyLength) {
+                CryptographicOperations.ZeroMemory(salt);
+                CryptographicOperations.ZeroMemory(expectedKey);
+                return false;
+            }
+
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[]? actualKey = null;
+            try {
+                actualKey = Rfc2898DeriveBytes.Pbkdf2(passwordBytes, salt, PasswordHashIterations, HashAlgorithmName.SHA256, PasswordHashKeyLength);
+                return CryptographicOperations.FixedTimeEquals(actualKey, expectedKey);
+            } finally {
+                CryptographicOperations.ZeroMemory(passwordBytes);
+                CryptographicOperations.ZeroMemory(salt);
+                CryptographicOperations.ZeroMemory(expectedKey);
+                if (actualKey is not null)
+                    CryptographicOperations.ZeroMemory(actualKey);
+            }
         }
 
         /// <summary>Reads a SecureString from the console input.</summary>
@@ -55,31 +129,17 @@
             return true;
         }
 
-        /// <summary>Converts a SecureString password to its hashed string representation.</summary>
+        /// <summary>Converts a SecureString password to plain text.</summary>
         /// <param name="password">The SecureString password.</param>
-        /// <returns>The hashed string representation of the password.</returns>
-        static string ToHashString(SecureString password)
+        /// <returns>The plain-text password.</returns>
+        static string ToPlainText(SecureString password)
         {
             var pointer = Marshal.SecureStringToBSTR(password);
-            var result = ToHashString(Marshal.PtrToStringAuto(pointer) ?? "");
-            Marshal.ZeroFreeBSTR(pointer);
-            return result;
-        }
-
-        /// <summary>Converts a plain text string to its hashed string representation.</summary>
-        /// <param name="text">The plain text string.</param>
-        /// <returns>The hashed string representation of the text.</returns>
-        static string ToHashString(string text)
-        {
-            var byteArray = Encoding.UTF8.GetBytes(text);
-            using var sha256 = SHA256.Create();
-            var hashValue = sha256.ComputeHash(byteArray);
-            sha256.Clear();
-
-            var stringBuilder = new StringBuilder();
-            foreach (byte eachByte in hashValue)
-                stringBuilder.Append(eachByte.ToString("x2"));
-            return stringBuilder.ToString();
+            try {
+                return Marshal.PtrToStringBSTR(pointer) ?? "";
+            } finally {
+                Marshal.ZeroFreeBSTR(pointer);
+            }
         }
 
         /// <summary>Provides methods for validating password characters.</summary>

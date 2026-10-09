@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace Shos.Console
@@ -102,20 +101,36 @@ namespace Shos.Console
         {
             Initialize();
 
-            var (collection, rowNumber, properties) = dataSource.GetProperties();
-            if (collection is null || rowNumber == 0 || properties is null)
+            if (dataSource is not IEnumerable collection)
                 return false;
 
-            var columns = properties.Select(property => new Column(header: property.Name,
-                                                                   values: collection.Select<object, object?>(element => property.GetValue(element))));
-            Show(columns, rowNumber, hasFrame);
+            var rows = collection.Cast<object?>().ToList();
+            var firstRow = rows.FirstOrDefault(row => row is not null);
+            if (firstRow is null)
+                return false;
+
+            var properties = firstRow.GetType()
+                                     .GetProperties()
+                                     .Where(property => property.GetIndexParameters().Length == 0)
+                                     .ToArray();
+            if (properties.Length == 0)
+                return false;
+
+            var columns = properties.Select(property => new Column(
+                header: property.Name,
+                values: rows.Select(row => row is null ? null : property.GetValue(row)).ToArray())).ToArray();
+            Show(columns, rows.Count, hasFrame);
             return true;
         }
 
         public static void Show(IEnumerable<(string colomnName, IEnumerable<object?> values)> dataSource, bool hasFrame = false)
         {
-            var rowNumber = dataSource.Max(data => data.values.Count());
-            var columns = dataSource.Select(data => new Column(header: data.colomnName, values: data.values));
+            var sourceColumns = dataSource.Select(data => (data.colomnName, values: data.values.ToArray())).ToArray();
+            if (sourceColumns.Length == 0)
+                return;
+
+            var rowNumber = sourceColumns.Max(data => data.values.Length);
+            var columns = sourceColumns.Select(data => new Column(header: data.colomnName, values: data.values)).ToArray();
             Show(columns, rowNumber, hasFrame);
         }
 
@@ -140,24 +155,6 @@ namespace Shos.Console
             ShowSeparator(columns, hasFrame);
         }
 
-
-        static (IEnumerable?, int, PropertyInfo[]?) GetProperties(this object? @this)
-        {
-            var collection = @this as IEnumerable;
-            if (collection is not null) {
-                var collectionCount = collection.Count();
-                if (collectionCount > 0) {
-                    var enumerator = collection.GetEnumerator();
-                    enumerator.MoveNext();
-                    var type       = enumerator.Current.GetType();
-                    var properties = type.GetProperties();
-
-                    if (properties.Length > 0)
-                        return (collection, collectionCount, properties);
-                }
-            }
-            return (collection, 0, null);
-        }
 
         static void ShowSeparator(IEnumerable<Column> columns, bool hasFrame)
         {

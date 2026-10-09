@@ -34,5 +34,15 @@ namespace Shos.Console.Tests
             var text = inappropriateCharacters.Apply();
             Assert.AreEqual(appropriateCharacters, text);
         }
+
+        [TestMethod]
+        public void WaveDashAndFullWidthTildeTest()
+        {
+            Assert.AreEqual("~", "～".Apply());
+            Assert.AreEqual("~", "〜".Apply());
+            Assert.AreEqual("~", "￣".Apply());
+            Assert.AreEqual("A~B", "A～B".Apply());
+            Assert.AreEqual("A~B", "A〜B".Apply());
+        }
     }
 }
