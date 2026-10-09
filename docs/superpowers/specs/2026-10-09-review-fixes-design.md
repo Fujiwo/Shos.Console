@@ -25,12 +25,13 @@ The existing uncommitted README edit is outside this scope and must be retained.
 `ConsoleHelper.ReadPassword` continues to read and mask console input, but
 returns a self-describing PBKDF2-SHA256 string containing a format version, a
 random salt, the iteration count, and the derived key. Add a public
-`VerifyPassword` method that parses this representation and compares derived
-keys using a fixed-time comparison. Invalid or unsupported hash strings return
-`false`; unexpected runtime and console errors are not swallowed. Tests must
-verify successful and unsuccessful comparisons, distinct salts for repeated
-hashes, and malformed input handling. The API documentation must make the
-storage-format change and verification flow clear.
+`HashPassword` method for non-console callers and a public `VerifyPassword`
+method that parses this representation and compares derived keys using a
+fixed-time comparison. `ReadPassword` delegates to `HashPassword`. Invalid or
+unsupported hash strings return `false`; unexpected runtime and console errors
+are not swallowed. Tests must verify successful and unsuccessful comparisons,
+distinct salts for repeated hashes, and malformed input handling. The API
+documentation must make the storage-format change and verification flow clear.
 
 ### Grid rendering
 
