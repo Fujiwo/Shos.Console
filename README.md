@@ -1,11 +1,24 @@
 # Shos.Console
-Shos.Console
+
+[English](https://github.com/Fujiwo/Shos.Console/blob/main/README.md) | [日本語](https://github.com/Fujiwo/Shos.Console/blob/main/README.jp.md)
 
 ## Summary
 
-Console Library (.NET 8.0)
+Console Library (.NET 8.0 / .NET 10.0)
 
 A library for Console.
+
+* GridView: Draw a collection as a table to console
+* ConsoleHelper: Read a password from the console and hash/verify it
+* ColorSetter: Temporarily set the console foreground and background colors
+* JapaneseTextNormalizer: Normalize Japanese text
+
+## Supported Frameworks
+
+* .NET 8.0 (`net8.0`)
+* .NET 10.0 (`net10.0`)
+
+The NuGet package contains assemblies for both target frameworks.
 
 ## NuGet
 
@@ -15,36 +28,38 @@ You can install Shos.Console to your project with [NuGet](https://www.nuget.org)
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.1.5
+    PM>Install-Package Shos.Console -version 1.1.6
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.1.5
+    >dotnet add package Shos.Console --version 1.1.6
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.1.5" />
+    <PackageReference Include="Shos.Console" Version="1.1.6" />
 
 ## Projects
 
 ### Shos.Console
 
-Library.
+Library (targets .NET 8.0 and .NET 10.0).
 
 #### GridView
 
 * Draw a collection as a table to console
 * Support for full-width and half-width characters (所謂全角・半角文字対応)
-* Targets .NET 8.0
+* Data can also be passed per column name (`IEnumerable<(string, IEnumerable<object?>)>`)
+* Extension method version: `ShowTable()`
 
 #### ConsoleHelper
-* public static string ReadPassword(string message)
-** Reads a password from the console input and returns a salted PBKDF2-SHA256 hash.
-* public static string HashPassword(string password)
-** Creates a salted PBKDF2-SHA256 hash without reading from the console.
-* public static bool VerifyPassword(string password, string passwordHash)
-** Verifies a password against a hash returned by ReadPassword or HashPassword.
-** Hash values returned by older versions (unsalted SHA-256) are not compatible and must be migrated.
+
+* `public static string ReadPassword(string message)`
+    * Reads a password from the console input and returns a salted PBKDF2-SHA256 hash.
+* `public static string HashPassword(string password)`
+    * Creates a salted PBKDF2-SHA256 hash without reading from the console.
+* `public static bool VerifyPassword(string password, string passwordHash)`
+    * Verifies a password against a hash returned by `ReadPassword` or `HashPassword`.
+    * Hash values returned by older versions (unsalted SHA-256) are not compatible and must be migrated.
 
 #### ColorSetter
 
@@ -56,11 +71,32 @@ Library.
 
 ### Shos.Console.Sample
 
-Sample for Shos.Console.
+Sample for Shos.Console (targets .NET 8.0 and .NET 10.0).
 
-### Shos.Console.Tests
+### Shos.ConsoleTests
 
-Tests for Shos.Console.
+Tests for Shos.Console (MSTest, targets .NET 8.0 and .NET 10.0).
+
+## Build and Test
+
+Requires the .NET 10 SDK (which can also build `net8.0` targets).
+Running the tests for each target framework requires the corresponding .NET runtime.
+
+    >dotnet build Shos.Console.sln
+    >dotnet test Shos.Console.sln
+
+To run for a specific framework:
+
+    >dotnet test Shos.Console.sln -f net10.0
+
+## Release Notes
+
+### 1.1.6
+
+* Supports both .NET 8.0 and .NET 10.0 (multi-targeting).
+* `ConsoleHelper`: Password hashes use salted PBKDF2-SHA256. Added `HashPassword` and `VerifyPassword`.
+* `GridView`: Enumerates each input sequence only once, skips indexer properties, and tolerates a null first row.
+* `JapaneseTextNormalizer`: Normalizes full-width wave dash and full-width tilde to `~`.
 
 ## Sample
 

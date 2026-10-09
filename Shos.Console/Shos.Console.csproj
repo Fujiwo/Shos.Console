@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-	<TargetFramework>net8.0</TargetFramework>
+	<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 		<RootNamespace>Shos.Console</RootNamespace>
 		<AssemblyName>Shos.Console</AssemblyName>
-		<Copyright>Copyright © 2022-2024 Fujio Kojima</Copyright>
-		<Version>1.1.5</Version>
+		<Copyright>Copyright © 2022-2026 Fujio Kojima</Copyright>
+		<Version>1.1.6</Version>
 		<Description>
-			Console Library (.NET 8.0)
+			Console Library (.NET 8.0 / .NET 10.0)
 
 			A library for Console.
 			- GridView: Draw a collection as a table to console
-			(for .NET 8.0 or later)
+			(for .NET 8.0 and .NET 10.0)
 		</Description>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
-		<AssemblyVersion>1.1.5</AssemblyVersion>
-		<FileVersion>1.1.5</FileVersion>
+		<AssemblyVersion>1.1.6</AssemblyVersion>
+		<FileVersion>1.1.6</FileVersion>
 		<PackageTags>console gridview table color password</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Authors>Fujio Kojima</Authors>
