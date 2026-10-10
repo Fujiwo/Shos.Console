@@ -62,6 +62,7 @@ classDiagram
     class ConsoleHelper {
         <<static>>
         +ReadPassword(string message) string$
+        +ReadAndVerifyPassword(string message, string passwordHash) bool$
         +HashPassword(string password) string$
         +VerifyPassword(string password, string passwordHash) bool$
     }
@@ -164,13 +165,15 @@ Number Name         Score
 * `public static string ReadPassword(string message)`
     * コンソールからパスワードを入力し (入力文字は `*` で表示)、ソルト付き PBKDF2-SHA256 ハッシュを返します。
     * 入力できる文字は `a-z`、`A-Z`、`0-9`、`!@#$%^&*` のみです。Backspace で 1 文字削除、Enter で入力を終了します。
+* `public static bool ReadAndVerifyPassword(string message, string passwordHash)`
+    * `ReadPassword` と同じ方法でコンソールからパスワードを入力し、`ReadPassword` または `HashPassword` が返したハッシュと照合します。
 * `public static string HashPassword(string password)`
     * コンソールを使わずに、ソルト付き PBKDF2-SHA256 ハッシュを生成します。
 * `public static bool VerifyPassword(string password, string passwordHash)`
     * `ReadPassword` または `HashPassword` が返したハッシュとパスワードを照合します。
     * 対応していない形式のハッシュに対しては `false` を返します。
 
-ハッシュの形式は `shos-pbkdf2-sha256$v1$600000$<ソルト (Base64)>$<キー (Base64)>` です。ランダムな 16 バイトのソルトと 600,000 回の反復を使うため、同じパスワードでも毎回異なるハッシュ値になります。パスワードの確認には、ハッシュ同士を比較せず `VerifyPassword` を使ってください。
+ハッシュの形式は `shos-pbkdf2-sha256$v1$600000$<ソルト (Base64)>$<キー (Base64)>` です。ランダムな 16 バイトのソルトと 600,000 回の反復を使うため、同じパスワードでも毎回異なるハッシュ値になります。パスワードの確認には、ハッシュ同士を比較せず `ReadAndVerifyPassword` または `VerifyPassword` を使ってください。
 
 1.1.6 より前のバージョンが返したハッシュ値 (ソルトなし SHA-256) とは互換性がないため、移行が必要です。
 
@@ -178,8 +181,11 @@ Number Name         Score
 // 登録時: パスワードではなくハッシュを保存する
 var passwordHash = ConsoleHelper.ReadPassword("Input password");
 
-// ログイン時
-var ok = ConsoleHelper.VerifyPassword(password, passwordHash);
+// ログイン時: コンソールからパスワードを入力して照合する
+var ok = ConsoleHelper.ReadAndVerifyPassword("Input password", passwordHash);
+
+// 手元にあるパスワードを照合する場合
+var ok2 = ConsoleHelper.VerifyPassword(password, passwordHash);
 ```
 
 ### ColorSetter
@@ -249,8 +255,10 @@ Shos.Console のテスト (MSTest、.NET 8.0 および .NET 10.0 対応)。
 
 ### 1.1.7
 
-* ソース コードを C# 12 の書き方に刷新 (ファイル スコープ名前空間、プライマリ コンストラクター、コレクション式、リスト パターン、ソース生成正規表現)。公開 API に変更はありません。
+* `ConsoleHelper`: コンソールからパスワードを入力してハッシュと照合する `ReadAndVerifyPassword` を追加。
+* ソース コードを C# 12 の書き方に刷新 (ファイル スコープ名前空間、プライマリ コンストラクター、コレクション式、リスト パターン、ソース生成正規表現)。既存の公開 API に変更はありません。
 * サンプルを C# 12 の書き方に更新。
+* パスワードのサンプルを修正。ソルト付きハッシュ同士を比較していたため常に `NG` になっていたのを、2 回目の入力を `ReadAndVerifyPassword` で照合するように変更。
 * NuGet パッケージの説明と README (クラス図・使い方) を更新。
 
 ### 1.1.6

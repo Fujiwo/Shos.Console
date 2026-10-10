@@ -30,6 +30,19 @@ public static partial class ConsoleHelper
         return HashPassword(ToPlainText(password));
     }
 
+    /// <summary>Reads a password from the console input and verifies it against a versioned hash created by <see cref="HashPassword"/> or <see cref="ReadPassword"/>.</summary>
+    /// <param name="message">The message to display before reading the password.</param>
+    /// <param name="passwordHash">The versioned hash to verify against.</param>
+    /// <returns><see langword="true"/> when the password matches a supported hash; otherwise, <see langword="false"/>.</returns>
+    public static bool ReadAndVerifyPassword(string message, string passwordHash)
+    {
+        ArgumentNullException.ThrowIfNull(passwordHash);
+
+        Console.Write($"{message}: ");
+        using var password = ReadSecureString();
+        return VerifyPassword(ToPlainText(password), passwordHash);
+    }
+
     /// <summary>Creates a salted PBKDF2-SHA256 hash for the specified password.</summary>
     /// <param name="password">The password to hash.</param>
     /// <returns>A versioned hash suitable for storage and verification with <see cref="VerifyPassword"/>.</returns>

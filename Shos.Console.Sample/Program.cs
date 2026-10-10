@@ -185,13 +185,11 @@ static class Program
     /// <summary>Tests the password reading functionality.</summary>
     static void ReadPasswordSample()
     {
-        const string message = "Input password";
+        // The hash is salted, so it differs every time. Verify a password against the hash instead of comparing hashes.
+        var passwordHash = ConsoleHelper.ReadPassword("Input password");
+        var result = ConsoleHelper.ReadAndVerifyPassword("Input password again", passwordHash) ? "OK" : "NG";
 
-        var hash1 = ConsoleHelper.ReadPassword(message);
-        var hash2 = ConsoleHelper.ReadPassword(message);
-        var result = hash1 == hash2 ? "OK" : "NG";
-
-        Console.WriteLine($"1:{hash1}\n2:{hash2}\nresult: {result}");
+        Console.WriteLine($"hash: {passwordHash}\nresult: {result}");
     }
 
     static void ColorSetterSample()

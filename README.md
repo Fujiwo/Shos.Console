@@ -62,6 +62,7 @@ classDiagram
     class ConsoleHelper {
         <<static>>
         +ReadPassword(string message) string$
+        +ReadAndVerifyPassword(string message, string passwordHash) bool$
         +HashPassword(string password) string$
         +VerifyPassword(string password, string passwordHash) bool$
     }
@@ -163,13 +164,15 @@ Number Name         Score
 * `public static string ReadPassword(string message)`
     * Reads a password from the console input (shown as `*`) and returns a salted PBKDF2-SHA256 hash.
     * Only `a-z`, `A-Z`, `0-9` and `!@#$%^&*` are accepted. Backspace deletes the last character, and Enter ends the input.
+* `public static bool ReadAndVerifyPassword(string message, string passwordHash)`
+    * Reads a password from the console input in the same way as `ReadPassword` and verifies it against a hash returned by `ReadPassword` or `HashPassword`.
 * `public static string HashPassword(string password)`
     * Creates a salted PBKDF2-SHA256 hash without reading from the console.
 * `public static bool VerifyPassword(string password, string passwordHash)`
     * Verifies a password against a hash returned by `ReadPassword` or `HashPassword`.
     * Returns `false` for a hash in an unsupported format.
 
-A hash has the format `shos-pbkdf2-sha256$v1$600000$<salt (Base64)>$<key (Base64)>`. It uses a random 16-byte salt and 600,000 iterations, so hashing the same password twice gives different values. Use `VerifyPassword` to check a password. Do not compare two hashes.
+A hash has the format `shos-pbkdf2-sha256$v1$600000$<salt (Base64)>$<key (Base64)>`. It uses a random 16-byte salt and 600,000 iterations, so hashing the same password twice gives different values. Use `ReadAndVerifyPassword` or `VerifyPassword` to check a password. Do not compare two hashes.
 
 Hash values returned by versions earlier than 1.1.6 (unsalted SHA-256) are not compatible and must be migrated.
 
@@ -177,8 +180,11 @@ Hash values returned by versions earlier than 1.1.6 (unsalted SHA-256) are not c
 // Registration: store the hash, not the password.
 var passwordHash = ConsoleHelper.ReadPassword("Input password");
 
-// Login
-var ok = ConsoleHelper.VerifyPassword(password, passwordHash);
+// Login: read the password from the console and verify it.
+var ok = ConsoleHelper.ReadAndVerifyPassword("Input password", passwordHash);
+
+// Or verify a password you already have.
+var ok2 = ConsoleHelper.VerifyPassword(password, passwordHash);
 ```
 
 ### ColorSetter
@@ -248,8 +254,10 @@ To run for a specific framework:
 
 ### 1.1.7
 
-* Modernized the source code to C# 12 (file-scoped namespaces, primary constructors, collection expressions, list patterns and source-generated regular expressions). The public API has not changed.
+* `ConsoleHelper`: Added `ReadAndVerifyPassword`, which reads a password from the console and verifies it against a hash.
+* Modernized the source code to C# 12 (file-scoped namespaces, primary constructors, collection expressions, list patterns and source-generated regular expressions). No existing public API has changed.
 * Updated the sample to C# 12.
+* Fixed the password sample, which compared two salted hashes and therefore always printed `NG`. It now verifies the second input with `ReadAndVerifyPassword`.
 * Updated the NuGet package description and this README (class diagram and usage).
 
 ### 1.1.6

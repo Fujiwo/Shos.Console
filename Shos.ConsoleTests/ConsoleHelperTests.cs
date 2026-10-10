@@ -31,4 +31,8 @@ public class ConsoleHelperTests
     [DataRow("shos-pbkdf2-sha256$v1$600000$AA==$AA==")]
     public void VerifyPassword_ReturnsFalseForInvalidHash(string hash)
         => Assert.IsFalse(ConsoleHelper.VerifyPassword("password", hash));
+
+    [TestMethod]
+    public void ReadAndVerifyPassword_ThrowsForNullHashBeforeReadingInput()
+        => Assert.ThrowsException<ArgumentNullException>(() => ConsoleHelper.ReadAndVerifyPassword("Input password", null!));
 }
