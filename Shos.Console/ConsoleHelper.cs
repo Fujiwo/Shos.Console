@@ -130,7 +130,7 @@ public static partial class ConsoleHelper
                 return false;
             case ConsoleKey.Backspace:
                 if (password.Length > 0) {
-                    Console.Write('\b');
+                    Console.Write("\b \b");
                     password.RemoveAt(password.Length - 1);
                 }
                 break;

@@ -255,6 +255,7 @@ To run for a specific framework:
 ### 1.1.7
 
 * `ConsoleHelper`: Added `ReadAndVerifyPassword`, which reads a password from the console and verifies it against a hash.
+* `ConsoleHelper`: Backspace during password input now also erases the `*` on the screen.
 * Modernized the source code to C# 12 (file-scoped namespaces, primary constructors, collection expressions, list patterns and source-generated regular expressions). No existing public API has changed.
 * Updated the sample to C# 12.
 * Fixed the password sample, which compared two salted hashes and therefore always printed `NG`. It now verifies the second input with `ReadAndVerifyPassword`.
