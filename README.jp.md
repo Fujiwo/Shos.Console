@@ -29,15 +29,15 @@ Visual Studio などから [NuGet](https://www.nuget.org) を使ってプロジ�
 
 ### パッケージ マネージャー
 
-    PM>Install-Package Shos.Console -version 1.1.7
+    PM>Install-Package Shos.Console -version 1.1.8
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.1.7
+    >dotnet add package Shos.Console --version 1.1.8
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.1.7" />
+    <PackageReference Include="Shos.Console" Version="1.1.8" />
 
 ## クラス図
 
@@ -253,13 +253,16 @@ Shos.Console のテスト (MSTest、.NET 8.0 および .NET 10.0 対応)。
 
 ## リリース ノート
 
-### 1.1.7
+### 1.1.8
 
 * `ConsoleHelper`: コンソールからパスワードを入力してハッシュと照合する `ReadAndVerifyPassword` を追加。
 * `ConsoleHelper`: パスワード入力中に Backspace を押したとき、画面上の `*` も消えるように修正。
-* ソース コードを C# 12 の書き方に刷新 (ファイル スコープ名前空間、プライマリ コンストラクター、コレクション式、リスト パターン、ソース生成正規表現)。既存の公開 API に変更はありません。
-* サンプルを C# 12 の書き方に更新。
 * パスワードのサンプルを修正。ソルト付きハッシュ同士を比較していたため常に `NG` になっていたのを、2 回目の入力を `ReadAndVerifyPassword` で照合するように変更。
+
+### 1.1.7
+
+* ソース コードを C# 12 の書き方に刷新 (ファイル スコープ名前空間、プライマリ コンストラクター、コレクション式、リスト パターン、ソース生成正規表現)。公開 API に変更はありません。
+* サンプルを C# 12 の書き方に更新。
 * NuGet パッケージの説明と README (クラス図・使い方) を更新。
 
 ### 1.1.6

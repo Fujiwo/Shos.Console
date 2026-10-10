@@ -29,15 +29,15 @@ You can install Shos.Console in your project with [NuGet](https://www.nuget.org)
 
 ### Package Manager
 
-    PM>Install-Package Shos.Console -version 1.1.7
+    PM>Install-Package Shos.Console -version 1.1.8
 
 ### .NET CLI
 
-    >dotnet add package Shos.Console --version 1.1.7
+    >dotnet add package Shos.Console --version 1.1.8
 
 ### PackageReference
 
-    <PackageReference Include="Shos.Console" Version="1.1.7" />
+    <PackageReference Include="Shos.Console" Version="1.1.8" />
 
 ## Class Diagram
 
@@ -252,13 +252,16 @@ To run for a specific framework:
 
 ## Release Notes
 
-### 1.1.7
+### 1.1.8
 
 * `ConsoleHelper`: Added `ReadAndVerifyPassword`, which reads a password from the console and verifies it against a hash.
 * `ConsoleHelper`: Backspace during password input now also erases the `*` on the screen.
-* Modernized the source code to C# 12 (file-scoped namespaces, primary constructors, collection expressions, list patterns and source-generated regular expressions). No existing public API has changed.
-* Updated the sample to C# 12.
 * Fixed the password sample, which compared two salted hashes and therefore always printed `NG`. It now verifies the second input with `ReadAndVerifyPassword`.
+
+### 1.1.7
+
+* Modernized the source code to C# 12 (file-scoped namespaces, primary constructors, collection expressions, list patterns and source-generated regular expressions). The public API has not changed.
+* Updated the sample to C# 12.
 * Updated the NuGet package description and this README (class diagram and usage).
 
 ### 1.1.6
