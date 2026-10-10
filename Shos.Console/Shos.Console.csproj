@@ -7,19 +7,22 @@
 		<RootNamespace>Shos.Console</RootNamespace>
 		<AssemblyName>Shos.Console</AssemblyName>
 		<Copyright>Copyright © 2022-2026 Fujio Kojima</Copyright>
-		<Version>1.1.6</Version>
+		<Version>1.1.7</Version>
 		<Description>
 			Console Library (.NET 8.0 / .NET 10.0)
 
 			A library for Console.
 			- GridView: Draw a collection as a table to console
+			- ConsoleHelper: Read a password from the console and hash/verify it (PBKDF2-SHA256)
+			- ColorSetter: Temporarily set the console foreground and background colors
+			- JapaneseTextNormalizer: Normalize Japanese text
 			(for .NET 8.0 and .NET 10.0)
 		</Description>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Fujiwo/Shos.Console/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Fujiwo/Shos.Console/</RepositoryUrl>
-		<AssemblyVersion>1.1.6</AssemblyVersion>
-		<FileVersion>1.1.6</FileVersion>
+		<AssemblyVersion>1.1.7</AssemblyVersion>
+		<FileVersion>1.1.7</FileVersion>
 		<PackageTags>console gridview table color password</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Authors>Fujio Kojima</Authors>
